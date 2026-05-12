@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How It Works — TradeRecon</title>
+  <meta name="description" content="Learn how TradeRecon automates the full post-trade reconciliation workflow in four steps."/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/login.css"/>
+  <style>
+    .section{padding:5rem var(--space-8);}.container{max-width:1000px;margin:0 auto;}
+    .step-card{display:flex;gap:2rem;align-items:flex-start;padding:2rem;background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);transition:border-color .25s;}
+    .step-card:hover{border-color:var(--color-accent);}
+    .step-big{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--color-accent),var(--color-info));display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#0d1117;flex-shrink:0;}
+    .connector{width:2px;height:40px;background:linear-gradient(to bottom,var(--color-accent),var(--color-border));margin-left:25px;}
+  </style>
+</head>
+<body>
+<nav class="public-nav">
+  <a href="index.html" class="public-nav-brand"><div class="public-nav-brand-logo">TR</div>TradeRecon</a>
+  <div class="public-nav-links">
+    <a href="features.html" class="public-nav-link">Features</a>
+    <a href="workflow.html" class="public-nav-link active">How It Works</a>
+    <a href="about.html"    class="public-nav-link">About</a>
+    <a href="contact.html"  class="public-nav-link">Contact</a>
+  </div>
+  <div class="public-nav-cta">
+    <a href="login.html" class="btn btn-secondary btn-sm">Sign In</a>
+    <a href="login.html#register" class="btn btn-primary btn-sm">Get Started</a>
+  </div>
+</nav>
+
+<div style="padding-top:64px;">
+  <section class="section" style="text-align:center;background:var(--color-bg-surface);border-bottom:1px solid var(--color-border);">
+    <div class="container" style="max-width:640px;">
+      <div style="display:inline-block;background:var(--color-accent-muted);color:var(--color-accent);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.25rem .75rem;border-radius:9999px;margin-bottom:1.25rem;">Workflow</div>
+      <h1 style="font-size:2.75rem;font-weight:800;letter-spacing:-.04em;margin-bottom:1rem;">How TradeRecon Works</h1>
+      <p style="color:var(--color-text-secondary);font-size:1.0625rem;line-height:1.7;">The complete post-trade reconciliation workflow — from raw data to audit-ready resolution — in four clear phases.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+        <div class="step-card animate-fade-in-up">
+          <div class="step-big">1</div>
+          <div>
+            <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:.5rem;">Upload &amp; Ingest Trade Data</h2>
+            <p style="color:var(--color-text-secondary);line-height:1.7;margin-bottom:1rem;">Your operations team uploads internal trade blotters via the <strong style="color:var(--color-text-primary);">Upload Trades</strong> page. Accepted formats include CSV (from Bloomberg, Murex, Calypso) and JSON. Alternatively, individual trades can be submitted via the manual entry form for OTC or bespoke instruments.</p>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+              <span class="badge badge-info">CSV / JSON / XML</span>
+              <span class="badge badge-info">Manual Entry Form</span>
+              <span class="badge badge-info">Schema Validation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="step-card animate-fade-in-up">
+          <div class="step-big">2</div>
+          <div>
+            <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:.5rem;">Trigger the Reconciliation Engine</h2>
+            <p style="color:var(--color-text-secondary);line-height:1.7;margin-bottom:1rem;">Navigate to the <strong style="color:var(--color-text-primary);">Reconciliation</strong> page and click <em>Trigger Run</em>. The engine loads your internal positions, fetches counterparty confirmations, and applies multi-rule matching logic. The 4-step loader shows real-time progress. Results are stored and available immediately upon completion.</p>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+              <span class="badge badge-warning">3-Second Engine Run</span>
+              <span class="badge badge-warning">Multi-Asset Rules</span>
+              <span class="badge badge-warning">ISIN / CUSIP Matching</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="step-card animate-fade-in-up">
+          <div class="step-big">3</div>
+          <div>
+            <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:.5rem;">Review &amp; Resolve Exceptions</h2>
+            <p style="color:var(--color-text-secondary);line-height:1.7;margin-bottom:1rem;">The <strong style="color:var(--color-text-primary);">Exceptions</strong> page surfaces all breaks with severity ratings (Critical → Low), exception type, counterparty, variance amount, and assigned owner. Analysts can update status, add comment threads, and escalate items. Every action is logged.</p>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+              <span class="badge badge-danger">Critical / High / Medium / Low</span>
+              <span class="badge badge-danger">7 Exception Types</span>
+              <span class="badge badge-danger">Comment Threads</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="step-card animate-fade-in-up">
+          <div class="step-big">4</div>
+          <div>
+            <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:.5rem;">Export Reports &amp; Audit Trail</h2>
+            <p style="color:var(--color-text-secondary);line-height:1.7;margin-bottom:1rem;">On the <strong style="color:var(--color-text-primary);">Reports</strong> page, export filtered datasets as CSV using the native Blob download API — no server required. The <strong style="color:var(--color-text-primary);">Audit Log</strong> provides an immutable, time-stamped record of every user action for MiFID II, EMIR, and SOC-2 compliance.</p>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+              <span class="badge badge-success">CSV Export (Blob API)</span>
+              <span class="badge badge-success">Full Audit Trail</span>
+              <span class="badge badge-success">MiFID II Ready</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--color-bg-surface);border-top:1px solid var(--color-border);text-align:center;">
+    <div class="container" style="max-width:580px;">
+      <h2 style="font-size:2rem;font-weight:800;margin-bottom:1rem;">Try the full workflow now</h2>
+      <p style="color:var(--color-text-secondary);margin-bottom:2rem;">Register and your account comes pre-loaded with 20 trades and 10 exceptions — ready for a live reconciliation run.</p>
+      <a href="login.html#register" class="btn btn-primary btn-lg">Create Free Account</a>
+    </div>
+  </section>
+
+  <footer style="background:var(--color-bg-base);border-top:1px solid var(--color-border);padding:2rem var(--space-8);text-align:center;font-size:.8125rem;color:var(--color-text-muted);">
+    &copy; 2025 TradeRecon Ltd. &nbsp;·&nbsp; <a href="index.html" style="color:var(--color-text-muted);">Home</a>
+  </footer>
+</div>
+</body>
+</html>

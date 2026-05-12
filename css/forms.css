@@ -1,0 +1,88 @@
+/* forms.css — Form Styles (app pages) */
+
+.form-section {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+.form-section-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-5); }
+.form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+.form-col-span-2 { grid-column: span 2; }
+
+@media (max-width: 900px) {
+  .form-grid-2, .form-grid-3, .form-grid-4 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .form-grid-2, .form-grid-3, .form-grid-4 { grid-template-columns: 1fr; }
+  .form-col-span-2 { grid-column: span 1; }
+}
+
+/* Enhanced form input states */
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--color-bg-base);
+}
+.form-input.success { border-color: var(--color-success); }
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Radio group */
+.radio-group { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem var(--space-4);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+.radio-option:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.radio-option input[type="radio"] { accent-color: var(--color-accent); }
+.radio-option:has(input:checked) {
+  background: var(--color-accent-muted);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Form footer bar */
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-4);
+}

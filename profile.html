@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile — TradeRecon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/forms.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main">
+    <div id="navbar-container"></div>
+    <div style="margin-top:var(--space-4);">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">My Profile</h1>
+        <p class="page-subtitle">Manage your account details and session preferences.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:var(--space-6);align-items:start;">
+
+      <!-- Avatar Panel -->
+      <div style="display:flex;flex-direction:column;gap:var(--space-5);">
+        <div class="card" style="text-align:center;padding:var(--space-8) var(--space-6);">
+          <div id="profile-avatar" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--color-accent),var(--color-info));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#0d1117;margin:0 auto var(--space-4);letter-spacing:-.02em;">—</div>
+          <div id="profile-name" style="font-size:1.125rem;font-weight:700;margin-bottom:.25rem;">—</div>
+          <div id="profile-role-badge" style="margin-bottom:var(--space-3);"></div>
+          <div id="profile-email" style="font-size:.8125rem;color:var(--color-text-muted);">—</div>
+          <div style="margin-top:var(--space-5);padding-top:var(--space-4);border-top:1px solid var(--color-border);">
+            <div style="font-size:.75rem;color:var(--color-text-muted);margin-bottom:var(--space-2);">Member since</div>
+            <div id="profile-since" style="font-size:.875rem;font-weight:600;">—</div>
+          </div>
+        </div>
+
+        <!-- Session Info -->
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Active Session</h2></div>
+          <div style="font-size:.8125rem;color:var(--color-text-secondary);line-height:2;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--color-text-muted);">Session ID</span><span id="sess-id" style="font-family:var(--font-mono);color:var(--color-accent);">—</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--color-text-muted);">Expires in</span><span id="sess-exp" style="color:var(--color-success);font-weight:600;">—</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--color-text-muted);">IP Address</span><span style="font-family:var(--font-mono);">127.0.0.1</span></div>
+          </div>
+          <div style="margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--color-border);">
+            <button class="btn btn-danger btn-sm" style="width:100%;" id="logout-btn">Sign Out</button>
+          </div>
+        </div>
+
+        <!-- Activity Summary -->
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Activity</h2></div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.8125rem;color:var(--color-text-secondary);">Recon Runs</span>
+              <span id="act-recon" style="font-weight:700;color:var(--color-text-primary);">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.8125rem;color:var(--color-text-secondary);">Uploads</span>
+              <span id="act-uploads" style="font-weight:700;color:var(--color-text-primary);">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.8125rem;color:var(--color-text-secondary);">Reports Exported</span>
+              <span id="act-reports" style="font-weight:700;color:var(--color-text-primary);">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.8125rem;color:var(--color-text-secondary);">Exceptions Updated</span>
+              <span id="act-exc" style="font-weight:700;color:var(--color-text-primary);">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Form -->
+      <div>
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Account Details
+          </div>
+          <div id="profile-alert" style="display:none;margin-bottom:var(--space-4);"></div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="pf-fullname">Full Name</label>
+              <input class="form-input" type="text" id="pf-fullname" placeholder="Your name"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-email">Email Address</label>
+              <input class="form-input" type="email" id="pf-email" placeholder="you@firm.com" readonly style="opacity:.6;cursor:not-allowed;" title="Email cannot be changed"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-role">Role</label>
+              <select class="form-select" id="pf-role">
+                <option>Analyst</option><option>Senior Analyst</option><option>Operations Lead</option><option>Compliance Officer</option><option>IT / Admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-firm">Firm / Institution</label>
+              <input class="form-input" type="text" id="pf-firm" placeholder="Global Capital"/>
+            </div>
+          </div>
+          <div class="form-footer" style="padding:var(--space-4) 0 0;">
+            <button class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+          </div>
+        </div>
+
+        <!-- Password Change -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Change Password
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label" for="pf-curr-pw">Current Password</label>
+              <input class="form-input" type="password" id="pf-curr-pw" placeholder="••••••••"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-new-pw">New Password</label>
+              <input class="form-input" type="password" id="pf-new-pw" placeholder="Min 8 characters"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-confirm-pw">Confirm Password</label>
+              <input class="form-input" type="password" id="pf-confirm-pw" placeholder="Repeat new password"/>
+            </div>
+          </div>
+          <div class="form-footer" style="padding:var(--space-4) 0 0;">
+            <button class="btn btn-secondary" id="change-pw-btn">Update Password</button>
+          </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 1 0 0 14.14"/><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/></svg>
+            Preferences
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:.875rem;font-weight:600;">Email Notifications</div>
+                <div style="font-size:.75rem;color:var(--color-text-muted);">Receive alerts for critical exceptions</div>
+              </div>
+              <input type="checkbox" id="pref-notif" checked style="accent-color:var(--color-accent);width:18px;height:18px;cursor:pointer;"/>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:.875rem;font-weight:600;">Auto-assign Exceptions</div>
+                <div style="font-size:.75rem;color:var(--color-text-muted);">Assign new exceptions to me automatically</div>
+              </div>
+              <input type="checkbox" id="pref-autoassign" style="accent-color:var(--color-accent);width:18px;height:18px;cursor:pointer;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  requireAuth();
+  await loadComponents([
+    { id: 'sidebar-container',    path: 'components/sidebar.html' },
+    { id: 'navbar-container',     path: 'components/navbar.html'  },
+    { id: 'loader-container',     path: 'components/loader.html'  },
+    { id: 'modal-container',      path: 'components/modal.html'   },
+    { id: 'toast-container-wrap', path: 'components/toast.html'   },
+  ]);
+
+  const session = Storage.Session.get();
+  if (!session) return;
+  const user    = Storage.Users.getAll().find(u => u.id === session.userId) || session;
+
+  // Avatar initials
+  const initials = (session.fullName || 'U').split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('profile-avatar').textContent   = initials;
+  document.getElementById('profile-name').textContent     = session.fullName;
+  document.getElementById('profile-email').textContent    = session.email;
+  document.getElementById('profile-since').textContent    = Utils.formatDate(user.createdAt || session.createdAt);
+  document.getElementById('profile-role-badge').innerHTML = `<span class="badge badge-info">${Utils.escapeHtml(user.role || 'Analyst')}</span>`;
+
+  document.getElementById('pf-fullname').value = session.fullName;
+  document.getElementById('pf-email').value    = session.email;
+  document.getElementById('pf-role').value     = user.role || 'Analyst';
+  document.getElementById('pf-firm').value     = user.firm || '';
+
+  // Session info
+  const exp = new Date(session.expiresAt);
+  const mins = Math.max(0, Math.round((exp - Date.now()) / 60000));
+  document.getElementById('sess-id').textContent  = session.id?.slice(0, 12) + '…' || '—';
+  document.getElementById('sess-exp').textContent = mins > 60 ? Math.round(mins/60) + 'h remaining' : mins + ' min remaining';
+
+  // Activity counts (from audit log)
+  const log = Storage.AuditLog.getAll().filter(e => e.userId === session.userId);
+  document.getElementById('act-recon').textContent   = log.filter(e => e.action==='RECONCILIATION_RUN').length;
+  document.getElementById('act-uploads').textContent = log.filter(e => e.action==='TRADE_FILE_UPLOADED').length;
+  document.getElementById('act-reports').textContent = log.filter(e => e.action==='REPORT_EXPORTED').length;
+  document.getElementById('act-exc').textContent     = log.filter(e => e.action==='EXCEPTION_STATUS_CHANGED').length;
+
+  // Save profile
+  document.getElementById('save-profile-btn').addEventListener('click', () => {
+    const name = document.getElementById('pf-fullname').value.trim();
+    if (!name) { Toast.error('Name cannot be empty.'); return; }
+    const users = Storage.Users.getAll();
+    const idx   = users.findIndex(u => u.id === session.userId);
+    if (idx > -1) {
+      users[idx].fullName = name;
+      users[idx].role     = document.getElementById('pf-role').value;
+      users[idx].firm     = document.getElementById('pf-firm').value.trim();
+      Storage.Users.save(users);
+    }
+    session.fullName = name;
+    Storage.Session.save(session);
+    document.getElementById('profile-name').textContent = name;
+    document.getElementById('profile-avatar').textContent = name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    Toast.success('Profile updated successfully.');
+  });
+
+  // Change password
+  document.getElementById('change-pw-btn').addEventListener('click', () => {
+    const curr    = document.getElementById('pf-curr-pw').value;
+    const newPw   = document.getElementById('pf-new-pw').value;
+    const confirm = document.getElementById('pf-confirm-pw').value;
+    const users   = Storage.Users.getAll();
+    const user    = users.find(u => u.id === session.userId);
+    if (!user || user.password !== curr) { Toast.error('Current password is incorrect.'); return; }
+    if (newPw.length < 8) { Toast.error('New password must be at least 8 characters.'); return; }
+    if (newPw !== confirm) { Toast.error('Passwords do not match.'); return; }
+    user.password = newPw;
+    Storage.Users.save(users);
+    document.getElementById('pf-curr-pw').value = '';
+    document.getElementById('pf-new-pw').value  = '';
+    document.getElementById('pf-confirm-pw').value = '';
+    Toast.success('Password updated successfully.');
+  });
+
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    Modal.show({
+      title: 'Sign Out',
+      body: '<p>Are you sure you want to sign out of your current session?</p>',
+      confirmText: 'Sign Out',
+      cancelText: 'Cancel',
+      type: 'danger',
+      onConfirm: () => { Storage.Session.clear(); window.location.href = 'login.html'; },
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!-- Reusable Modal — inject into every app page -->
+<div
+  id="modal-overlay"
+  class="hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  aria-describedby="modal-body"
+>
+  <div class="modal-box">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Confirm Action</h2>
+      <button
+        class="btn btn-ghost btn-icon"
+        id="modal-close-x"
+        aria-label="Close dialog"
+        onclick="Modal.hide();"
+        style="color:var(--color-text-muted); padding:0.25rem;"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body" id="modal-body">
+      Are you sure you want to proceed?
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn-cancel" id="modal-cancel-btn" onclick="Modal.hide();">
+        Cancel
+      </button>
+      <button class="modal-btn modal-btn-primary" id="modal-confirm-btn">
+        Confirm
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Close modal on overlay backdrop click
+  document.getElementById('modal-overlay')?.addEventListener('click', function(e) {
+    if (e.target === this) Modal.hide();
+  });
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') Modal.hide();
+  });
+</script>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Features — TradeRecon</title>
+  <meta name="description" content="Explore all features of the TradeRecon enterprise reconciliation platform."/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/login.css"/>
+  <style>
+    .section{padding:5rem var(--space-8);}
+    .container{max-width:1100px;margin:0 auto;}
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+    .feat-card{background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);transition:all .25s;}
+    .feat-card:hover{border-color:var(--color-accent);transform:translateY(-3px);}
+    .feat-icon{width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);}
+  </style>
+</head>
+<body>
+<nav class="public-nav">
+  <a href="index.html" class="public-nav-brand"><div class="public-nav-brand-logo">TR</div>TradeRecon</a>
+  <div class="public-nav-links">
+    <a href="features.html" class="public-nav-link active">Features</a>
+    <a href="workflow.html" class="public-nav-link">How It Works</a>
+    <a href="about.html"    class="public-nav-link">About</a>
+    <a href="contact.html"  class="public-nav-link">Contact</a>
+  </div>
+  <div class="public-nav-cta">
+    <a href="login.html" class="btn btn-secondary btn-sm">Sign In</a>
+    <a href="login.html#register" class="btn btn-primary btn-sm">Get Started</a>
+  </div>
+</nav>
+
+<div style="padding-top:64px;">
+  <!-- Hero -->
+  <section class="section" style="text-align:center;background:var(--color-bg-surface);border-bottom:1px solid var(--color-border);">
+    <div class="container" style="max-width:680px;">
+      <div style="display:inline-block;background:var(--color-accent-muted);color:var(--color-accent);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.25rem .75rem;border-radius:9999px;margin-bottom:1.25rem;">Full Platform</div>
+      <h1 style="font-size:2.75rem;font-weight:800;letter-spacing:-.04em;margin-bottom:1rem;">Every feature your ops team needs</h1>
+      <p style="color:var(--color-text-secondary);font-size:1.0625rem;line-height:1.7;">TradeRecon is purpose-built for the post-trade lifecycle — from multi-source ingestion through exception resolution and compliance reporting.</p>
+    </div>
+  </section>
+
+  <!-- Feature groups -->
+  <section class="section">
+    <div class="container">
+
+      <h2 style="font-size:1.375rem;font-weight:700;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--color-border);">
+        <span style="color:var(--color-accent);">01 /</span> Data Ingestion
+      </h2>
+      <div class="feat-grid" style="margin-bottom:3rem;">
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-accent-muted);color:var(--color-accent);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Drag &amp; Drop File Upload</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Upload CSV, JSON or XML trade blotters from any OMS or EMS. Files validated on arrival against schema rules.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-accent-muted);color:var(--color-accent);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Manual Trade Entry</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Structured form for bespoke or OTC trades. All fields validated in real time including ISIN, CUSIP, and notional.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-accent-muted);color:var(--color-accent);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Schema Validation</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Field-level and cross-field validation rules catch errors before they enter the reconciliation engine.</p>
+        </div>
+      </div>
+
+      <h2 style="font-size:1.375rem;font-weight:700;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--color-border);">
+        <span style="color:var(--color-danger);">02 /</span> Reconciliation Engine
+      </h2>
+      <div class="feat-grid" style="margin-bottom:3rem;">
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-danger-bg);color:var(--color-danger);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Multi-Asset Matching</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Equities, fixed income, FX, commodities, and derivatives matched against counterparty data with configurable tolerances.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-danger-bg);color:var(--color-danger);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">7 Exception Types</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Price mismatch, settlement date, currency, quantity, duplicate, missing confirmation, and commission discrepancies.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-danger-bg);color:var(--color-danger);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Severity Scoring</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Automatic Critical / High / Medium / Low classification based on variance magnitude and regulatory impact.</p>
+        </div>
+      </div>
+
+      <h2 style="font-size:1.375rem;font-weight:700;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--color-border);">
+        <span style="color:var(--color-success);">03 /</span> Reporting &amp; Compliance
+      </h2>
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-success-bg);color:var(--color-success);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Match Rate Analytics</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Portfolio-level dashboards showing match rates, open exceptions, and trends across counterparties.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-success-bg);color:var(--color-success);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">One-Click CSV Export</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Export trade lists, exception summaries, or full audit logs as CSV for compliance and external review.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="background:var(--color-success-bg);color:var(--color-success);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3 style="font-size:.9375rem;font-weight:700;margin-bottom:.4rem;">Immutable Audit Log</h3>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);">Every action time-stamped and attributed. Full trail from ingestion to resolution for MiFID II and EMIR.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="background:var(--color-bg-surface);border-top:1px solid var(--color-border);text-align:center;">
+    <div class="container" style="max-width:600px;">
+      <h2 style="font-size:2rem;font-weight:800;margin-bottom:1rem;">See it in action</h2>
+      <p style="color:var(--color-text-secondary);margin-bottom:2rem;">Register for a free account and your mock data is pre-loaded — no setup required.</p>
+      <a href="login.html#register" class="btn btn-primary btn-lg">Start Free</a>
+    </div>
+  </section>
+
+  <footer style="background:var(--color-bg-base);border-top:1px solid var(--color-border);padding:2rem var(--space-8);text-align:center;font-size:.8125rem;color:var(--color-text-muted);">
+    &copy; 2025 TradeRecon Ltd. &nbsp;·&nbsp; <a href="index.html" style="color:var(--color-text-muted);">Home</a> &nbsp;·&nbsp; <a href="contact.html" style="color:var(--color-text-muted);">Contact</a>
+  </footer>
+</div>
+</body>
+</html>

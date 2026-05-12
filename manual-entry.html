@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manual Trade Entry — TradeRecon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/forms.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main">
+    <div id="navbar-container"></div>
+    <div style="margin-top:var(--space-4);">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Manual Trade Entry</h1>
+        <p class="page-subtitle">Enter individual trade details directly. All fields are validated before submission.</p>
+      </div>
+      <a href="upload.html" class="btn btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Bulk Upload
+      </a>
+    </div>
+
+    <form id="manual-trade-form" novalidate>
+
+      <!-- Trade Identity -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Trade Identity
+        </div>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label class="form-label" for="f-tradeId">Trade ID <span class="required">*</span></label>
+            <input class="form-input" type="text" id="f-tradeId" placeholder="TRD-2025-001" aria-describedby="f-tradeId-error"/>
+            <span id="f-tradeId-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-tradeDate">Trade Date <span class="required">*</span></label>
+            <input class="form-input" type="date" id="f-tradeDate" aria-describedby="f-tradeDate-error"/>
+            <span id="f-tradeDate-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-settlDate">Settlement Date <span class="required">*</span></label>
+            <input class="form-input" type="date" id="f-settlDate" aria-describedby="f-settlDate-error"/>
+            <span id="f-settlDate-error" class="form-error" style="display:none;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instrument Details -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Instrument Details
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group form-col-span-2">
+            <label class="form-label" for="f-instrument">Instrument Name <span class="required">*</span></label>
+            <input class="form-input" type="text" id="f-instrument" placeholder="e.g. AAPL US Equity" aria-describedby="f-instrument-error"/>
+            <span id="f-instrument-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-isin">ISIN</label>
+            <input class="form-input" type="text" id="f-isin" placeholder="US0378331005" maxlength="12" style="font-family:var(--font-mono);"/>
+            <span id="f-isin-error" class="form-error" style="display:none;"></span>
+            <span class="form-hint">12-character identifier. Enter N/A for non-listed instruments.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-assetClass">Asset Class <span class="required">*</span></label>
+            <select class="form-select" id="f-assetClass" aria-describedby="f-assetClass-error">
+              <option value="">— Select —</option>
+              <option>Equity</option>
+              <option>Fixed Income</option>
+              <option>FX</option>
+              <option>Commodity</option>
+              <option>Derivative</option>
+              <option>Money Market</option>
+              <option>Repo</option>
+            </select>
+            <span id="f-assetClass-error" class="form-error" style="display:none;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trade Economics -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Trade Economics
+        </div>
+        <div class="form-grid-4">
+          <div class="form-group">
+            <label class="form-label" for="f-side">Side <span class="required">*</span></label>
+            <select class="form-select" id="f-side">
+              <option value="">— Select —</option>
+              <option>Buy</option>
+              <option>Sell</option>
+            </select>
+            <span id="f-side-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-quantity">Quantity <span class="required">*</span></label>
+            <input class="form-input" type="number" id="f-quantity" placeholder="5000" min="0" style="font-family:var(--font-mono);"/>
+            <span id="f-quantity-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-price">Price <span class="required">*</span></label>
+            <input class="form-input" type="number" id="f-price" placeholder="187.42" step="0.0001" min="0" style="font-family:var(--font-mono);" oninput="computeNotional()"/>
+            <span id="f-price-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-currency">Currency <span class="required">*</span></label>
+            <select class="form-select" id="f-currency">
+              <option value="">— Select —</option>
+              <option>USD</option><option>EUR</option><option>GBP</option><option>JPY</option>
+              <option>CHF</option><option>AUD</option><option>CAD</option><option>SGD</option>
+              <option>HKD</option>
+            </select>
+            <span id="f-currency-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group form-col-span-2">
+            <label class="form-label" for="f-notional">Notional Amount <span class="required">*</span></label>
+            <input class="form-input" type="number" id="f-notional" placeholder="Auto-calculated" style="font-family:var(--font-mono);"/>
+            <span id="f-notional-error" class="form-error" style="display:none;"></span>
+            <span class="form-hint">Auto-filled from Quantity × Price. Override if needed.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Counterparty & Portfolio -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Counterparty &amp; Portfolio
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="f-counterparty">Counterparty <span class="required">*</span></label>
+            <input class="form-input" type="text" id="f-counterparty" placeholder="Goldman Sachs"/>
+            <span id="f-counterparty-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-broker">Broker / Desk</label>
+            <input class="form-input" type="text" id="f-broker" placeholder="GS Prime"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-portfolio">Portfolio Code <span class="required">*</span></label>
+            <input class="form-input" type="text" id="f-portfolio" placeholder="GLOB-EQ-01" style="font-family:var(--font-mono);"/>
+            <span id="f-portfolio-error" class="form-error" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-trader">Trader</label>
+            <input class="form-input" type="text" id="f-trader" placeholder="J. Harrison"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Alert -->
+      <div id="form-alert" style="display:none;background:var(--color-danger-bg);border:1px solid rgba(248,81,73,.3);color:var(--color-danger);padding:var(--space-4);border-radius:var(--radius-md);margin-bottom:var(--space-4);font-size:.875rem;"></div>
+
+      <!-- Form Footer -->
+      <div class="form-footer">
+        <button type="button" class="btn btn-ghost" id="reset-btn">Reset Form</button>
+        <button type="button" class="btn btn-secondary" id="save-another-btn">Save &amp; Add Another</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Save Trade
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Submitted Trades in Session -->
+    <div class="card" style="margin-top:var(--space-6);" id="session-trades-card">
+      <div class="card-header">
+        <h2 class="card-title">Trades Added This Session</h2>
+        <span class="badge badge-info" id="session-count">0</span>
+      </div>
+      <div id="session-trades-list">
+        <p style="color:var(--color-text-muted);font-size:.875rem;text-align:center;padding:1.5rem;">No trades submitted yet.</p>
+      </div>
+    </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/validation.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  requireAuth();
+  await loadComponents([
+    { id: 'sidebar-container',    path: 'components/sidebar.html' },
+    { id: 'navbar-container',     path: 'components/navbar.html'  },
+    { id: 'loader-container',     path: 'components/loader.html'  },
+    { id: 'modal-container',      path: 'components/modal.html'   },
+    { id: 'toast-container-wrap', path: 'components/toast.html'   },
+  ]);
+
+  // Default dates
+  const today = new Date().toISOString().slice(0,10);
+  const t2    = new Date(Date.now() + 2*86400000).toISOString().slice(0,10);
+  document.getElementById('f-tradeDate').value = today;
+  document.getElementById('f-settlDate').value  = t2;
+
+  // Generate default trade ID
+  document.getElementById('f-tradeId').value = 'TRD-' + Date.now().toString().slice(-6);
+
+  // Wire form
+  document.getElementById('manual-trade-form').addEventListener('submit', handleSubmit);
+  document.getElementById('reset-btn').addEventListener('click', resetForm);
+  document.getElementById('save-another-btn').addEventListener('click', () => { handleSubmit(null, true); });
+
+  // Blur validation
+  ['f-tradeId','f-instrument','f-tradeDate','f-settlDate','f-assetClass','f-side','f-quantity','f-price','f-currency','f-notional','f-counterparty','f-portfolio'].forEach(id => {
+    document.getElementById(id)?.addEventListener('blur', () => validateField(id));
+    document.getElementById(id)?.addEventListener('input', () => clearError(id));
+  });
+});
+
+const _sessionTrades = [];
+
+function computeNotional() {
+  const qty   = parseFloat(document.getElementById('f-quantity').value)  || 0;
+  const price = parseFloat(document.getElementById('f-price').value)     || 0;
+  if (qty > 0 && price > 0) document.getElementById('f-notional').value = (qty * price).toFixed(2);
+}
+
+document.getElementById('f-quantity')?.addEventListener('input', computeNotional);
+
+function getFormValues() {
+  return {
+    tradeId:        document.getElementById('f-tradeId').value.trim(),
+    instrument:     document.getElementById('f-instrument').value.trim(),
+    isin:           document.getElementById('f-isin').value.trim() || 'N/A',
+    assetClass:     document.getElementById('f-assetClass').value,
+    side:           document.getElementById('f-side').value,
+    quantity:       document.getElementById('f-quantity').value,
+    price:          document.getElementById('f-price').value,
+    notional:       document.getElementById('f-notional').value,
+    currency:       document.getElementById('f-currency').value,
+    counterparty:   document.getElementById('f-counterparty').value.trim(),
+    broker:         document.getElementById('f-broker').value.trim(),
+    portfolio:      document.getElementById('f-portfolio').value.trim(),
+    trader:         document.getElementById('f-trader').value.trim(),
+    tradeDate:      document.getElementById('f-tradeDate').value,
+    settlDate:      document.getElementById('f-settlDate').value,
+    status:         'Pending',
+    source:         'Manual',
+  };
+}
+
+function validateField(id) {
+  const vals = getFormValues();
+  const fieldMap = { 'f-tradeId':'tradeId','f-instrument':'instrument','f-assetClass':'assetClass','f-side':'side','f-quantity':'quantity','f-price':'price','f-notional':'notional','f-currency':'currency','f-counterparty':'counterparty','f-portfolio':'portfolio','f-tradeDate':'tradeDate','f-settlDate':'settlDate' };
+  const key = fieldMap[id];
+  if (!key) return true;
+  const res = Validation.validateField(key, vals[key]);
+  Validation.setFieldError(id, res === true ? '' : res);
+  return res === true;
+}
+
+function clearError(id) { Validation.setFieldError(id, ''); }
+
+function handleSubmit(e, addAnother = false) {
+  if (e) e.preventDefault();
+  const trade = getFormValues();
+  const { valid, errors } = Validation.validateTrade({ ...trade, settlDate: trade.settlDate });
+
+  // Show errors
+  const fieldMap = { tradeId:'f-tradeId', instrument:'f-instrument', assetClass:'f-assetClass', side:'f-side', quantity:'f-quantity', price:'f-price', notional:'f-notional', currency:'f-currency', counterparty:'f-counterparty', portfolio:'f-portfolio', tradeDate:'f-tradeDate', settlDate:'f-settlDate' };
+  Object.entries(errors).forEach(([k,msg]) => Validation.setFieldError(fieldMap[k] || k, msg));
+
+  const alert = document.getElementById('form-alert');
+  if (!valid) {
+    alert.textContent = 'Please fix the errors above before saving.';
+    alert.style.display = 'block';
+    return;
+  }
+  alert.style.display = 'none';
+
+  const saved = Storage.Trades.add({ ...trade, settlementDate: trade.settlDate });
+  Storage.AuditLog.append('TRADE_MANUAL_ENTRY', { tradeId: saved.id, instrument: saved.instrument });
+  _sessionTrades.unshift(saved);
+  renderSessionTrades();
+  Toast.success(`Trade ${saved.id} saved successfully.`);
+
+  if (addAnother) {
+    resetForm(false);
+  }
+}
+
+function resetForm(clearAll = true) {
+  if (clearAll) document.getElementById('manual-trade-form').reset();
+  document.getElementById('f-tradeId').value = 'TRD-' + Date.now().toString().slice(-6);
+  document.getElementById('f-tradeDate').value = new Date().toISOString().slice(0,10);
+  document.getElementById('f-settlDate').value  = new Date(Date.now()+2*86400000).toISOString().slice(0,10);
+  document.getElementById('form-alert').style.display = 'none';
+  ['f-tradeId','f-instrument','f-assetClass','f-side','f-quantity','f-price','f-notional','f-currency','f-counterparty','f-portfolio','f-tradeDate','f-settlDate'].forEach(id => clearError(id));
+}
+
+function renderSessionTrades() {
+  const el = document.getElementById('session-trades-list');
+  const cnt = document.getElementById('session-count');
+  if (cnt) cnt.textContent = _sessionTrades.length;
+  if (!_sessionTrades.length) { el.innerHTML = '<p style="color:var(--color-text-muted);font-size:.875rem;text-align:center;padding:1.5rem;">No trades submitted yet.</p>'; return; }
+  el.innerHTML = _sessionTrades.slice(0,10).map(t => `
+    <div style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:1px solid var(--color-border-muted);">
+      <span style="font-family:var(--font-mono);font-size:.8125rem;color:var(--color-accent);">${Utils.escapeHtml(t.id)}</span>
+      <span style="flex:1;font-size:.875rem;color:var(--color-text-primary);">${Utils.escapeHtml(t.instrument)}</span>
+      <span class="badge ${Utils.statusBadgeClass(t.side === 'Buy' ? 'info' : 'warning')}">${Utils.escapeHtml(t.side)}</span>
+      <span style="font-size:.8125rem;color:var(--color-text-muted);font-family:var(--font-mono);">${Utils.formatCurrency(t.notional, t.currency)}</span>
+      <span class="badge badge-warning">Pending</span>
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>

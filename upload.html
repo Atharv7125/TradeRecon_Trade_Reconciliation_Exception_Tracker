@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Trades — TradeRecon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/upload.css"/>
+  <link rel="stylesheet" href="css/tables.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main">
+    <div id="navbar-container"></div>
+    <div style="margin-top:var(--space-4);">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Upload Trades</h1>
+        <p class="page-subtitle">Import trade files in CSV or JSON format to begin reconciliation.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:var(--space-6);align-items:start;">
+
+      <!-- Left: Drop Zone + Preview -->
+      <div>
+        <!-- Drop Zone -->
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:var(--space-6);border-bottom:1px solid var(--color-border);">
+            <h2 style="font-size:1rem;font-weight:700;">Import File</h2>
+          </div>
+          <div style="padding:var(--space-6);">
+            <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Upload file drop zone">
+              <div class="drop-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="drop-title">Drag &amp; drop your trade file here</div>
+              <div class="drop-sub">or click to browse from your computer</div>
+              <div class="drop-types">
+                <span class="drop-type-badge">CSV</span>
+                <span class="drop-type-badge">JSON</span>
+                <span class="drop-type-badge">Max 5 MB</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" id="browse-btn" style="margin-top:var(--space-5);" onclick="event.stopPropagation();">Browse Files</button>
+            </div>
+            <input type="file" id="file-input" accept=".csv,.json" style="display:none;" aria-hidden="true"/>
+
+            <!-- File preview injected here -->
+            <div id="file-preview-area" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- Parse preview injected here -->
+        <div id="parse-preview" style="display:none;"></div>
+      </div>
+
+      <!-- Right: Sidebar Panels -->
+      <div style="display:flex;flex-direction:column;gap:var(--space-5);">
+
+        <!-- Upload History -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Upload History</h2>
+          </div>
+          <div id="upload-history">
+            <p style="color:var(--color-text-muted);font-size:.875rem;text-align:center;padding:1rem 0;">Loading…</p>
+          </div>
+        </div>
+
+        <!-- Format Guide -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">CSV Column Reference</h2>
+          </div>
+          <table class="format-table">
+            <thead><tr><th>Column</th><th>Required</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>id</td><td><span class="req-badge">Required</span></td><td>TRD-2025-001</td></tr>
+              <tr><td>instrument</td><td><span class="req-badge">Required</span></td><td>AAPL US Equity</td></tr>
+              <tr><td>isin</td><td><span class="opt-badge">Optional</span></td><td>US0378331005</td></tr>
+              <tr><td>assetClass</td><td><span class="req-badge">Required</span></td><td>Equity</td></tr>
+              <tr><td>side</td><td><span class="req-badge">Required</span></td><td>Buy</td></tr>
+              <tr><td>quantity</td><td><span class="req-badge">Required</span></td><td>5000</td></tr>
+              <tr><td>price</td><td><span class="req-badge">Required</span></td><td>187.42</td></tr>
+              <tr><td>currency</td><td><span class="req-badge">Required</span></td><td>USD</td></tr>
+              <tr><td>counterparty</td><td><span class="req-badge">Required</span></td><td>Goldman Sachs</td></tr>
+              <tr><td>tradeDate</td><td><span class="req-badge">Required</span></td><td>2025-05-01</td></tr>
+              <tr><td>portfolio</td><td><span class="opt-badge">Optional</span></td><td>GLOB-EQ-01</td></tr>
+              <tr><td>trader</td><td><span class="opt-badge">Optional</span></td><td>J. Harrison</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Download Template -->
+        <div class="card" style="padding:var(--space-5);">
+          <h3 style="font-size:.875rem;font-weight:700;margin-bottom:.5rem;">Need a template?</h3>
+          <p style="font-size:.8125rem;color:var(--color-text-secondary);margin-bottom:1rem;">Download a pre-formatted CSV with headers and 3 sample rows.</p>
+          <button class="btn btn-secondary btn-sm" id="download-template-btn" style="width:100%;" onclick="downloadTemplate()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Template CSV
+          </button>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </main>
+</div>
+
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/upload.js"></script>
+<script>
+function downloadTemplate() {
+  const csv = [
+    'id,instrument,isin,assetClass,side,quantity,price,notional,currency,counterparty,broker,portfolio,trader,tradeDate,settlementDate',
+    'TRD-TMPL-001,AAPL US Equity,US0378331005,Equity,Buy,1000,187.42,187420,USD,Goldman Sachs,GS Prime,GLOB-EQ-01,J. Smith,2025-05-01,2025-05-03',
+    'TRD-TMPL-002,EUR/USD Spot,N/A,FX,Buy,1000000,1.0845,1084500,USD,Deutsche Bank,DB FX,FX-HEDGE-01,A. Mueller,2025-05-01,2025-05-03',
+    'TRD-TMPL-003,US 10Y T-Note,US91282CKN34,Fixed Income,Buy,5000000,98.875,4943750,USD,Citi,Citi Prime,FIXED-GOV-01,M. Chen,2025-05-01,2025-05-05',
+  ].join('\n');
+  Utils.downloadFile(csv, 'traderecon-template.csv', 'text/csv');
+  Toast.success('Template downloaded!');
+}
+</script>
+</body>
+</html>

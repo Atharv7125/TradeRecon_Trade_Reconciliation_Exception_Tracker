@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — TradeRecon</title>
+  <meta name="description" content="TradeRecon operations dashboard — overview of reconciliation status, open exceptions, and recent activity."/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link rel="stylesheet" href="css/tables.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main" id="app-main">
+    <div id="navbar-container"></div>
+
+    <!-- Page Header -->
+    <div class="page-header" style="margin-top: var(--space-4);">
+      <div>
+        <h1 class="page-title">Operations Dashboard</h1>
+        <p class="page-subtitle" id="dash-subtitle">Good morning — here's your reconciliation overview.</p>
+      </div>
+      <div style="display:flex;gap:var(--space-3);align-items:center;">
+        <span id="dash-date" style="font-size:.8125rem;color:var(--color-text-muted);font-family:var(--font-mono);"></span>
+        <a href="reconciliation.html" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          Trigger Recon Run
+        </a>
+      </div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="stats-row stagger">
+      <div class="kpi-card kpi-accent animate-fade-in-up">
+        <div class="kpi-label">Total Trades
+          <div class="kpi-icon" style="background:var(--color-accent-muted);color:var(--color-accent);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-total">—</div>
+        <div class="kpi-delta">Notional: <span id="kpi-notional" style="color:var(--color-text-primary);font-weight:600;">—</span></div>
+      </div>
+
+      <div class="kpi-card kpi-success animate-fade-in-up">
+        <div class="kpi-label">Matched
+          <div class="kpi-icon" style="background:var(--color-success-bg);color:var(--color-success);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-matched">—</div>
+        <div class="kpi-delta up">Match rate: <span id="kpi-matchrate" style="margin-left:3px;">—</span></div>
+      </div>
+
+      <div class="kpi-card kpi-danger animate-fade-in-up">
+        <div class="kpi-label">Open Exceptions
+          <div class="kpi-icon" style="background:var(--color-danger-bg);color:var(--color-danger);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-exceptions">—</div>
+        <div class="kpi-delta"><a href="exceptions.html" style="color:var(--color-accent);">View all exceptions →</a></div>
+      </div>
+
+      <div class="kpi-card kpi-warning animate-fade-in-up">
+        <div class="kpi-label">Last Recon Run
+          <div class="kpi-icon" style="background:var(--color-warning-bg);color:var(--color-warning);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" style="font-size:1.25rem;" id="kpi-run-time">—</div>
+        <div class="kpi-delta"><a href="reconciliation.html" style="color:var(--color-accent);">Run again →</a></div>
+      </div>
+    </div>
+
+    <!-- Last Recon Run Summary -->
+    <div style="margin-bottom:var(--space-6);" id="last-run-card">
+      <div style="color:var(--color-text-muted);font-size:.875rem;padding:var(--space-4);background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);">
+        Loading last reconciliation run…
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="dash-grid">
+
+      <!-- Left Column -->
+      <div class="dash-col-left">
+
+        <!-- Recent Exceptions Table -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Exceptions</h2>
+            <a href="exceptions.html" class="btn btn-ghost btn-sm">View all</a>
+          </div>
+          <div class="data-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Instrument</th><th>Type</th><th>Severity</th><th>Status</th><th>Detected</th>
+                </tr>
+              </thead>
+              <tbody id="recent-exc-tbody">
+                <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--color-text-muted);">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Audit Activity</h2>
+            <a href="audit.html" class="btn btn-ghost btn-sm">Full log</a>
+          </div>
+          <div id="activity-feed">
+            <p style="color:var(--color-text-muted);font-size:.875rem;padding:1rem 0;">Loading…</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="dash-col-right">
+
+        <!-- Match Rate Donut -->
+        <div class="card" style="text-align:center;">
+          <div class="card-header"><h2 class="card-title">Match Rate</h2></div>
+          <div class="donut-wrap">
+            <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120">
+              <circle class="donut-track" cx="60" cy="60" r="50"/>
+              <circle class="donut-fill" id="donut-fill" cx="60" cy="60" r="50"
+                stroke="url(#donut-grad)"
+                stroke-dasharray="314"
+                stroke-dashoffset="314"/>
+              <defs>
+                <linearGradient id="donut-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stop-color="var(--color-accent)"/>
+                  <stop offset="100%" stop-color="var(--color-success)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="donut-label">
+              <div class="donut-pct"  id="donut-pct-label">—</div>
+              <div class="donut-sub">matched</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Severity Breakdown -->
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Exception Severity</h2></div>
+          <div>
+            <div class="sev-bar-row">
+              <div class="sev-bar-label">Critical</div>
+              <div class="sev-bar-track"><div class="sev-bar-fill" id="sev-bar-critical" style="background:var(--color-critical);width:0%"></div></div>
+              <div class="sev-bar-count" id="sev-count-critical">0</div>
+            </div>
+            <div class="sev-bar-row">
+              <div class="sev-bar-label">High</div>
+              <div class="sev-bar-track"><div class="sev-bar-fill" id="sev-bar-high" style="background:var(--color-high);width:0%"></div></div>
+              <div class="sev-bar-count" id="sev-count-high">0</div>
+            </div>
+            <div class="sev-bar-row">
+              <div class="sev-bar-label">Medium</div>
+              <div class="sev-bar-track"><div class="sev-bar-fill" id="sev-bar-medium" style="background:var(--color-medium);width:0%"></div></div>
+              <div class="sev-bar-count" id="sev-count-medium">0</div>
+            </div>
+            <div class="sev-bar-row">
+              <div class="sev-bar-label">Low</div>
+              <div class="sev-bar-track"><div class="sev-bar-fill" id="sev-bar-low" style="background:var(--color-low);width:0%"></div></div>
+              <div class="sev-bar-count" id="sev-count-low">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Quick Actions</h2></div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+            <a href="upload.html" class="quick-action-btn">
+              <div class="quick-action-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+              Upload Trade File
+            </a>
+            <a href="manual-entry.html" class="quick-action-btn">
+              <div class="quick-action-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+              Manual Trade Entry
+            </a>
+            <a href="reconciliation.html" class="quick-action-btn">
+              <div class="quick-action-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg></div>
+              Run Reconciliation
+            </a>
+            <a href="reports.html" class="quick-action-btn">
+              <div class="quick-action-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+              Export Report
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Component slots -->
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+  // Set greeting and date
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  const session = Storage.Session.get();
+  if (session) {
+    const sub = document.getElementById('dash-subtitle');
+    if (sub) sub.textContent = `Good ${greet}, ${session.fullName.split(' ')[0]} — here's your reconciliation overview.`;
+  }
+  const dateEl = document.getElementById('dash-date');
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+</script>
+</body>
+</html>

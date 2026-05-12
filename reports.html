@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports — TradeRecon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <style>
+    .report-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);}
+    .report-card{background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);transition:all .2s;display:flex;flex-direction:column;}
+    .report-card:hover{border-color:var(--color-accent);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+    .report-card .btn[disabled]{opacity:.4;cursor:not-allowed;}
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main">
+    <div id="navbar-container"></div>
+    <div style="margin-top:var(--space-4);">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Reports &amp; Exports</h1>
+        <p class="page-subtitle">Generate and download audit-ready reports in CSV format via the native Blob API.</p>
+      </div>
+    </div>
+
+    <!-- Stats summary -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-4);margin-bottom:var(--space-8);">
+      <div class="kpi-card kpi-accent"><div class="kpi-label">Total Trades</div><div class="kpi-value" id="rpt-total-trades">—</div></div>
+      <div class="kpi-card kpi-success"><div class="kpi-label">Match Rate</div><div class="kpi-value" id="rpt-match-rate">—</div></div>
+      <div class="kpi-card kpi-accent"><div class="kpi-label">Total Notional</div><div class="kpi-value" style="font-size:1.5rem;" id="rpt-total-notional">—</div></div>
+      <div class="kpi-card kpi-danger"><div class="kpi-label">Open Exceptions</div><div class="kpi-value" id="rpt-open-exceptions">—</div></div>
+      <div class="kpi-card kpi-success"><div class="kpi-label">Resolved</div><div class="kpi-value" id="rpt-resolved">—</div></div>
+      <div class="kpi-card kpi-warning"><div class="kpi-label">Last Recon Run</div><div class="kpi-value" style="font-size:1rem;" id="rpt-last-run">—</div></div>
+    </div>
+
+    <!-- Report Cards Grid -->
+    <h2 style="font-size:1.125rem;font-weight:700;margin-bottom:var(--space-5);">Available Reports</h2>
+    <div class="report-cards-grid" id="report-cards-grid">
+      <div style="color:var(--color-text-muted);font-size:.875rem;padding:2rem;">Loading reports…</div>
+    </div>
+
+    <!-- Exception Type Breakdown -->
+    <div class="card" style="margin-top:var(--space-8);">
+      <div class="card-header">
+        <h2 class="card-title">Exception Type Breakdown</h2>
+        <button class="btn btn-secondary btn-sm" onclick="Reports.exportCSV('exception-report')">Export Full Exception Report</button>
+      </div>
+      <div id="exc-type-breakdown" style="padding:var(--space-4) 0;">
+        <p style="color:var(--color-text-muted);font-size:.875rem;text-align:center;padding:1rem;">Run a reconciliation to see exception breakdown.</p>
+      </div>
+    </div>
+
+    <!-- Compliance Note -->
+    <div style="margin-top:var(--space-6);padding:var(--space-5) var(--space-6);background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);display:flex;gap:var(--space-4);align-items:flex-start;">
+      <div style="font-size:1.25rem;flex-shrink:0;">🔒</div>
+      <div>
+        <div style="font-weight:700;font-size:.875rem;margin-bottom:.4rem;">Compliance Note</div>
+        <p style="font-size:.8125rem;color:var(--color-text-secondary);line-height:1.6;">All exports are generated client-side using the native <code style="font-family:var(--font-mono);background:var(--color-bg-elevated);padding:.1rem .3rem;border-radius:3px;">Blob API</code> and saved directly to your device. No data is transmitted to external servers. All export actions are recorded in the immutable Audit Log for regulatory compliance.</p>
+      </div>
+    </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>

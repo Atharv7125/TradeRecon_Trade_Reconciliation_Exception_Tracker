@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audit Log — TradeRecon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/tables.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main">
+    <div id="navbar-container"></div>
+    <div style="margin-top:var(--space-4);">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Audit Log</h1>
+        <p class="page-subtitle">Immutable, time-stamped record of all user and system actions for compliance.</p>
+      </div>
+      <button class="btn btn-secondary" id="aud-export-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-bottom:var(--space-6);">
+      <div class="kpi-card kpi-accent"><div class="kpi-label">Total Entries</div><div class="kpi-value" id="aud-total">—</div></div>
+      <div class="kpi-card kpi-info"><div class="kpi-label">Today</div><div class="kpi-value" id="aud-today">—</div></div>
+      <div class="kpi-card kpi-accent"><div class="kpi-label">Unique Users</div><div class="kpi-value" id="aud-users">—</div></div>
+      <div class="kpi-card kpi-accent"><div class="kpi-label">Action Types</div><div class="kpi-value" id="aud-actions">—</div></div>
+    </div>
+
+    <!-- Filter + Search -->
+    <div class="table-toolbar" style="margin-bottom:var(--space-4);">
+      <div class="table-search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="table-search" type="search" id="aud-search" placeholder="Search actions, users, entity IDs…"/>
+      </div>
+      <div class="table-filters">
+        <button class="filter-chip active" data-aud-filter="all">All</button>
+        <button class="filter-chip" data-aud-filter="RECONCILIATION_RUN">Recon Runs</button>
+        <button class="filter-chip" data-aud-filter="EXCEPTION_STATUS_CHANGED">Exception Updates</button>
+        <button class="filter-chip" data-aud-filter="TRADE_FILE_UPLOADED">Uploads</button>
+        <button class="filter-chip" data-aud-filter="REPORT_EXPORTED">Exports</button>
+        <button class="filter-chip" data-aud-filter="USER_LOGIN">Logins</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card" style="padding:0;">
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>User</th>
+              <th>Entity Type</th>
+              <th>Entity ID</th>
+              <th>IP Address</th>
+            </tr>
+          </thead>
+          <tbody id="aud-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--color-text-muted);">Loading audit log…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-pagination">
+        <span id="aud-table-info" style="font-size:.8125rem;color:var(--color-text-muted);"></span>
+        <div class="pagination-btns" id="aud-pagination"></div>
+      </div>
+    </div>
+
+    <!-- Compliance Banner -->
+    <div style="margin-top:var(--space-5);padding:var(--space-4) var(--space-5);background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:.8125rem;color:var(--color-text-muted);display:flex;align-items:center;gap:var(--space-3);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Audit records are append-only and stored in browser localStorage. All entries include timestamps, user identity, and action metadata for MiFID II and SOC-2 compliance.
+    </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/audit.js"></script>
+</body>
+</html>

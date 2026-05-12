@@ -1,0 +1,86 @@
+<!-- Fullscreen Loader Overlay — inject into every app page -->
+<div id="loader-overlay" class="hidden" role="status" aria-live="polite" aria-label="Loading">
+  <div style="display:flex; flex-direction:column; align-items:center; gap:var(--space-6);">
+
+    <!-- Concentric spinners -->
+    <div style="position:relative; width:64px; height:64px; display:flex; align-items:center; justify-content:center;">
+      <div class="loader-spinner"></div>
+      <div class="loader-inner-spinner"></div>
+    </div>
+
+    <!-- Text -->
+    <div class="loader-text">
+      <h3 id="loader-message">Processing…</h3>
+      <p id="loader-sub-message" style="font-size:0.8125rem; color:var(--color-text-muted); margin-top:var(--space-1);">Please wait, do not close this window.</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="loader-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+      <div class="loader-progress-bar" id="loader-progress-bar"></div>
+    </div>
+
+    <!-- Step indicators -->
+    <div id="loader-steps" style="display:flex; flex-direction:column; gap:var(--space-2); min-width:260px;">
+      <div class="loader-step" id="loader-step-1" style="display:flex; align-items:center; gap:var(--space-3); font-size:0.8125rem; color:var(--color-text-muted); opacity:0.5;">
+        <span class="loader-step-icon" style="width:20px; height:20px; border-radius:50%; background:var(--color-bg-overlay); display:flex; align-items:center; justify-content:center; font-size:0.625rem; font-weight:700; flex-shrink:0;">1</span>
+        <span>Loading trade positions…</span>
+      </div>
+      <div class="loader-step" id="loader-step-2" style="display:flex; align-items:center; gap:var(--space-3); font-size:0.8125rem; color:var(--color-text-muted); opacity:0.5;">
+        <span class="loader-step-icon" style="width:20px; height:20px; border-radius:50%; background:var(--color-bg-overlay); display:flex; align-items:center; justify-content:center; font-size:0.625rem; font-weight:700; flex-shrink:0;">2</span>
+        <span>Fetching counterparty confirmations…</span>
+      </div>
+      <div class="loader-step" id="loader-step-3" style="display:flex; align-items:center; gap:var(--space-3); font-size:0.8125rem; color:var(--color-text-muted); opacity:0.5;">
+        <span class="loader-step-icon" style="width:20px; height:20px; border-radius:50%; background:var(--color-bg-overlay); display:flex; align-items:center; justify-content:center; font-size:0.625rem; font-weight:700; flex-shrink:0;">3</span>
+        <span>Running matching algorithms…</span>
+      </div>
+      <div class="loader-step" id="loader-step-4" style="display:flex; align-items:center; gap:var(--space-3); font-size:0.8125rem; color:var(--color-text-muted); opacity:0.5;">
+        <span class="loader-step-icon" style="width:20px; height:20px; border-radius:50%; background:var(--color-bg-overlay); display:flex; align-items:center; justify-content:center; font-size:0.625rem; font-weight:700; flex-shrink:0;">4</span>
+        <span>Flagging exceptions…</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/**
+ * Animates the loader steps sequentially during a timed run.
+ * Call Loader.runRecon(3000) from reconciliation.js.
+ * @param {number} totalMs - Total duration in ms (default 3000).
+ */
+Loader.runRecon = async function(totalMs = 3000) {
+  const steps  = [1, 2, 3, 4];
+  const stepMs = totalMs / steps.length;
+
+  // Reset progress bar animation
+  const bar = document.getElementById('loader-progress-bar');
+  if (bar) {
+    bar.style.animation = 'none';
+    bar.offsetHeight; // reflow
+    bar.style.animation = `loader-fill ${totalMs}ms ease-in-out forwards`;
+  }
+
+  // Reset steps
+  steps.forEach(i => {
+    const el = document.getElementById(`loader-step-${i}`);
+    if (el) { el.style.opacity = '0.5'; el.querySelector('.loader-step-icon').style.background = 'var(--color-bg-overlay)'; }
+  });
+
+  this.show('Running Reconciliation Engine');
+
+  for (const i of steps) {
+    await new Promise(r => setTimeout(r, stepMs));
+    const el = document.getElementById(`loader-step-${i}`);
+    if (el) {
+      el.style.opacity = '1';
+      el.style.color   = 'var(--color-text-primary)';
+      const icon = el.querySelector('.loader-step-icon');
+      icon.style.background = 'var(--color-accent)';
+      icon.style.color      = 'var(--color-text-inverse)';
+      icon.textContent      = '✓';
+    }
+  }
+
+  this.hide();
+};
+</script>

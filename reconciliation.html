@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reconciliation — TradeRecon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/tables.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <style>
+    .recon-hero{background:linear-gradient(135deg,var(--color-bg-surface) 0%,var(--color-bg-elevated) 100%);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-10) var(--space-8);text-align:center;position:relative;overflow:hidden;margin-bottom:var(--space-8);}
+    .recon-hero::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(0,188,212,.1) 0%,transparent 70%);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none;}
+    .run-summary-banner{display:none;align-items:center;gap:var(--space-5);padding:var(--space-5) var(--space-6);background:var(--color-success-bg);border:1px solid rgba(63,185,80,.3);border-radius:var(--radius-lg);margin-bottom:var(--space-6);}
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="app-main">
+    <div id="navbar-container"></div>
+    <div style="margin-top:var(--space-4);">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Reconciliation Engine</h1>
+        <p class="page-subtitle">Run the matching engine against counterparty confirmations to detect trade breaks.</p>
+      </div>
+    </div>
+
+    <!-- Run Summary Banner (shown after run) -->
+    <div class="run-summary-banner" id="run-summary-banner" role="alert"></div>
+
+    <!-- Hero Trigger Panel -->
+    <div class="recon-hero">
+      <div style="position:relative;z-index:1;">
+        <div style="width:80px;height:80px;margin:0 auto var(--space-6);background:var(--color-accent-muted);border:1px solid rgba(0,188,212,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-accent);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        </div>
+        <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:var(--space-3);">Trigger Reconciliation Run</h2>
+        <p style="color:var(--color-text-secondary);max-width:520px;margin:0 auto var(--space-6);line-height:1.7;">
+          The engine will load all internal trade positions, fetch counterparty confirmations, apply multi-asset matching rules,
+          and flag any breaks as new exceptions.
+        </p>
+
+        <!-- Current trade stats -->
+        <div style="display:flex;justify-content:center;gap:3rem;margin-bottom:var(--space-8);flex-wrap:wrap;">
+          <div style="text-align:center;"><div style="font-size:1.75rem;font-weight:800;color:var(--color-text-primary);" id="rs-total">—</div><div style="font-size:.75rem;color:var(--color-text-muted);margin-top:2px;">Trades Loaded</div></div>
+          <div style="text-align:center;"><div style="font-size:1.75rem;font-weight:800;color:var(--color-success);" id="rs-matched">—</div><div style="font-size:.75rem;color:var(--color-text-muted);margin-top:2px;">Matched</div></div>
+          <div style="text-align:center;"><div style="font-size:1.75rem;font-weight:800;color:var(--color-danger);" id="rs-exceptions">—</div><div style="font-size:.75rem;color:var(--color-text-muted);margin-top:2px;">Exceptions</div></div>
+          <div style="text-align:center;"><div style="font-size:1.75rem;font-weight:800;color:var(--color-warning);" id="rs-pending">—</div><div style="font-size:.75rem;color:var(--color-text-muted);margin-top:2px;">Pending</div></div>
+          <div style="text-align:center;"><div style="font-size:1.75rem;font-weight:800;color:var(--color-accent);" id="rs-matchrate">—</div><div style="font-size:.75rem;color:var(--color-text-muted);margin-top:2px;">Match Rate</div></div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" id="trigger-recon-btn" style="min-width:220px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          Trigger Recon Run
+        </button>
+        <div style="margin-top:var(--space-4);font-size:.8125rem;color:var(--color-text-muted);">
+          Estimated duration: ~3 seconds &nbsp;·&nbsp; <span id="rs-notional"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Run History -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Run History</h2>
+        <a href="exceptions.html" class="btn btn-ghost btn-sm">View Exceptions →</a>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Run ID</th><th>Timestamp</th><th>Total</th><th>Matched</th><th>Exceptions</th><th>Match Rate</th>
+            </tr>
+          </thead>
+          <tbody id="run-history-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--color-text-muted);">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Matching Rules Reference -->
+    <div class="card" style="margin-top:var(--space-6);">
+      <div class="card-header"><h2 class="card-title">Matching Rules Applied</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;">
+        <div style="padding:var(--space-4);background:var(--color-bg-elevated);border-radius:var(--radius-md);border-left:3px solid var(--color-accent);">
+          <div style="font-weight:700;font-size:.875rem;margin-bottom:.4rem;">Price Mismatch</div>
+          <p style="font-size:.8125rem;color:var(--color-text-secondary);">Flags trades where internal execution price deviates from counterparty confirmed price by more than tolerance.</p>
+        </div>
+        <div style="padding:var(--space-4);background:var(--color-bg-elevated);border-radius:var(--radius-md);border-left:3px solid var(--color-danger);">
+          <div style="font-weight:700;font-size:.875rem;margin-bottom:.4rem;">Counterparty Mismatch</div>
+          <p style="font-size:.8125rem;color:var(--color-text-secondary);">Detects quantity or notional discrepancies between internal and external booking systems.</p>
+        </div>
+        <div style="padding:var(--color-bg-elevated);background:var(--color-bg-elevated);border-radius:var(--radius-md);border-left:3px solid var(--color-warning);padding:var(--space-4);">
+          <div style="font-weight:700;font-size:.875rem;margin-bottom:.4rem;">Missing Confirmation</div>
+          <p style="font-size:.8125rem;color:var(--color-text-secondary);">Raises exceptions for trades past T+1 with no counterparty confirmation received.</p>
+        </div>
+        <div style="padding:var(--space-4);background:var(--color-bg-elevated);border-radius:var(--radius-md);border-left:3px solid var(--color-info);">
+          <div style="font-weight:700;font-size:.875rem;margin-bottom:.4rem;">Settlement Date Check</div>
+          <p style="font-size:.8125rem;color:var(--color-text-secondary);">Validates that settlement dates align with market conventions per asset class and jurisdiction.</p>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="loader-container"></div>
+<div id="modal-container"></div>
+<div id="toast-container-wrap"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mockData.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/reconciliation.js"></script>
+</body>
+</html>

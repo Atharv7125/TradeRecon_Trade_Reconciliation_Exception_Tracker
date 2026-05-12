@@ -1,0 +1,57 @@
+/* responsive.css — Breakpoints & Mobile Overrides */
+
+/* ── Tablet: ≤ 1024px ──────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --sidebar-width: var(--sidebar-collapsed-width); }
+
+  .app-main { margin-left: var(--sidebar-collapsed-width); padding: var(--space-6); }
+
+  #app-sidebar .sidebar-brand-text,
+  #app-sidebar .sidebar-link-label,
+  #app-sidebar .sidebar-section-label,
+  #app-sidebar .sidebar-badge,
+  #app-sidebar .sidebar-user-info { opacity: 0; width: 0; pointer-events: none; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Mobile: ≤ 768px ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  #app-sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width) !important;
+    transition: transform var(--transition-normal);
+    z-index: 200;
+  }
+  #app-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  #app-sidebar.mobile-open .sidebar-brand-text,
+  #app-sidebar.mobile-open .sidebar-link-label,
+  #app-sidebar.mobile-open .sidebar-section-label,
+  #app-sidebar.mobile-open .sidebar-user-info { opacity: 1; width: auto; pointer-events: all; }
+
+  .app-main { margin-left: 0; padding: var(--space-4); }
+
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .stats-grid  { grid-template-columns: 1fr; }
+
+  #toast-container { left: var(--space-4); right: var(--space-4); }
+  .toast { min-width: unset; max-width: 100%; }
+
+  .modal-box { padding: var(--space-6); }
+  h1 { font-size: 1.75rem; }
+}
+
+/* ── Small Mobile: ≤ 480px ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .app-main { padding: var(--space-3); }
+  .card     { padding: var(--space-4); }
+  .btn      { font-size: 0.8125rem; }
+}
+
+/* ── Stats grid helper ─────────────────────────────────────── */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+
+@media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .stats-grid { grid-template-columns: 1fr; } }

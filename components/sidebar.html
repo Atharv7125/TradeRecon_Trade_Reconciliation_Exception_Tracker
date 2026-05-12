@@ -1,0 +1,147 @@
+<aside id="app-sidebar" role="navigation" aria-label="Primary navigation">
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <div class="sidebar-logo" aria-hidden="true">TR</div>
+    <div class="sidebar-brand-text">
+      <div class="sidebar-brand-name">TradeRecon</div>
+      <div class="sidebar-brand-sub">Capital Markets</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+
+    <!-- Overview -->
+    <div class="sidebar-section-label">Overview</div>
+
+    <a href="dashboard.html" class="sidebar-link" data-page="dashboard.html" id="nav-dashboard">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Dashboard</span>
+    </a>
+
+    <!-- Data Ingestion -->
+    <div class="sidebar-section-label" style="margin-top: var(--space-4)">Data Ingestion</div>
+
+    <a href="upload.html" class="sidebar-link" data-page="upload.html" id="nav-upload">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Upload Trades</span>
+    </a>
+
+    <a href="manual-entry.html" class="sidebar-link" data-page="manual-entry.html" id="nav-manual">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Manual Entry</span>
+    </a>
+
+    <!-- Processing -->
+    <div class="sidebar-section-label" style="margin-top: var(--space-4)">Processing</div>
+
+    <a href="reconciliation.html" class="sidebar-link" data-page="reconciliation.html" id="nav-recon">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+          <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Reconciliation</span>
+    </a>
+
+    <a href="exceptions.html" class="sidebar-link" data-page="exceptions.html" id="nav-exceptions">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Exceptions</span>
+      <span class="sidebar-badge" id="sidebar-exceptions-badge" style="display:none">0</span>
+    </a>
+
+    <!-- Reporting -->
+    <div class="sidebar-section-label" style="margin-top: var(--space-4)">Reporting</div>
+
+    <a href="reports.html" class="sidebar-link" data-page="reports.html" id="nav-reports">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Reports</span>
+    </a>
+
+    <a href="audit.html" class="sidebar-link" data-page="audit.html" id="nav-audit">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Audit Log</span>
+    </a>
+
+    <!-- Account -->
+    <div class="sidebar-section-label" style="margin-top: var(--space-4)">Account</div>
+
+    <a href="profile.html" class="sidebar-link" data-page="profile.html" id="nav-profile">
+      <span class="sidebar-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="sidebar-link-label">Profile</span>
+    </a>
+
+  </nav>
+
+  <!-- User Panel -->
+  <div class="sidebar-user">
+    <div class="avatar avatar-sm" id="sidebar-avatar" aria-hidden="true">--</div>
+    <div class="sidebar-user-info">
+      <div class="sidebar-user-name" id="sidebar-user-name">Loading...</div>
+      <div class="sidebar-user-role" id="sidebar-user-role"></div>
+    </div>
+    <button
+      class="sidebar-logout-btn"
+      id="sidebar-logout-btn"
+      title="Sign out"
+      aria-label="Sign out"
+      onclick="Storage.Session.destroy(); window.location.href='login.html';"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </button>
+  </div>
+
+</aside>
+
+<script>
+  // Update exception badge after sidebar loads
+  (function() {
+    const stats = window.Storage?.Exceptions?.getStats();
+    const badge = document.getElementById('sidebar-exceptions-badge');
+    if (badge && stats && stats.open > 0) {
+      badge.textContent = stats.open > 9 ? '9+' : stats.open;
+      badge.style.display = 'inline-flex';
+    }
+  })();
+</script>
